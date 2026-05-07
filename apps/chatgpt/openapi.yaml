@@ -1,10 +1,10 @@
 openapi: 3.1.0
 info:
-  title: NewsMAN Codex Sync
+  title: NewsMAN AI Sync
   version: 0.2.0
   description: Safe ChatGPT Action bridge for NewsMAN lists, imports, segments, automations, newsletters, and reports.
 servers:
-  - url: https://your-newsman-codex-sync.example.com
+  - url: https://your-newsman-ai-sync.example.com
     description: Replace with your deployed HTTPS bridge.
 paths:
   /tools/newsman_list_all:

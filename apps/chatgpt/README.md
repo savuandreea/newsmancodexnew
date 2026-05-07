@@ -1,8 +1,8 @@
-# NewsMAN for ChatGPT
+# NewsMAN AI Sync for ChatGPT
 
 Status: blueprint.
 
-This folder keeps the ChatGPT-specific packaging separate from the Codex plugin.
+This folder keeps the ChatGPT-specific packaging separate from the Codex plugin while using the same NewsMAN AI Sync name, safety model, and logo.
 
 ## Recommended Paths
 
@@ -26,7 +26,8 @@ This folder keeps the ChatGPT-specific packaging separate from the Codex plugin.
 
 ## Setup Notes
 
-- Replace `https://your-newsman-codex-sync.example.com` in `openapi.yaml` with the deployed HTTPS bridge URL.
+- Replace `https://your-newsman-ai-sync.example.com` in `openapi.yaml` with the deployed HTTPS bridge URL.
+- Use `../../assets/newsman-logo.svg` as the GPT Builder profile/logo asset.
 - Use API key or OAuth in the GPT Action editor. Do not hard-code secrets here.
 - Keep responses as raw JSON where possible so ChatGPT can summarize them.
 
