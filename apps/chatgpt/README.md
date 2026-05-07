@@ -1,5 +1,7 @@
 # NewsMAN AI Sync for ChatGPT
 
+![NewsMAN logo](../../assets/newsman-logo.svg)
+
 Status: blueprint.
 
 This folder keeps the ChatGPT-specific packaging separate from the Codex plugin while using the same NewsMAN AI Sync name, safety model, and logo.
@@ -16,6 +18,27 @@ This folder keeps the ChatGPT-specific packaging separate from the Codex plugin 
    - Requires an HTTPS REST bridge in front of the local NewsMAN tool handlers.
    - Uses `openapi.yaml` in this folder as the starting schema.
 
+## Bridge
+
+`bridge/server.mjs` exposes the OpenAPI tool paths over HTTP and reuses the same NewsMAN MCP tool handlers used by Codex.
+
+Local smoke test:
+
+```powershell
+node apps/chatgpt/bridge/smoke-test.mjs
+```
+
+Local run:
+
+```powershell
+setx CHATGPT_ACTION_API_KEY "replace-with-a-random-action-key"
+setx NEWSMAN_USER_ID "your-user-id"
+setx NEWSMAN_API_KEY "your-api-key"
+node apps/chatgpt/bridge/server.mjs
+```
+
+For ChatGPT Actions, deploy this bridge behind HTTPS/TLS and replace the `servers.url` value in `openapi.yaml` with that public URL.
+
 ## Safety Contract
 
 - Read-only endpoints first.
@@ -30,6 +53,20 @@ This folder keeps the ChatGPT-specific packaging separate from the Codex plugin 
 - Use `../../assets/newsman-logo.svg` as the GPT Builder profile/logo asset.
 - Use API key or OAuth in the GPT Action editor. Do not hard-code secrets here.
 - Keep responses as raw JSON where possible so ChatGPT can summarize them.
+
+## GPT Builder Checklist
+
+Use these assets in ChatGPT GPT Builder:
+
+| GPT Builder Field | Value |
+| --- | --- |
+| Name | `NewsMAN AI Sync` |
+| Logo | `assets/newsman-logo.svg` |
+| Instructions | `apps/chatgpt/instructions.md` |
+| Action schema | `apps/chatgpt/openapi.yaml` |
+| Authentication | API key or OAuth, configured in GPT Builder only |
+
+The GPT Builder action will not work until `openapi.yaml` points to a deployed HTTPS bridge.
 
 ## Official References
 
