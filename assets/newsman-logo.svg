@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="NewsMAN">
+  <rect x="12" y="12" width="232" height="232" rx="26" fill="#fff"/>
+  <rect x="12" y="12" width="232" height="232" rx="26" fill="none" stroke="#eee9eb" stroke-width="2"/>
+  <g fill="none" stroke="#b5121b" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M101 78 157 67 164 106 108 118z" stroke-width="7"/>
+    <path d="M104 82 132 96 157 71" stroke-width="6"/>
+    <path d="M128 58h.1" stroke-width="9"/>
+    <path d="M116 68h.1" stroke-width="6"/>
+  </g>
+  <text x="128" y="167" fill="#b5121b" font-family="Arial, Helvetica, sans-serif" font-size="36" text-anchor="middle" letter-spacing="0">News<tspan font-weight="700">MAN</tspan></text>
+</svg>

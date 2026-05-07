@@ -1,0 +1,139 @@
+openapi: 3.1.0
+info:
+  title: NewsMAN AI Sync
+  version: "0.2.0"
+  description: Safe demo actions for NewsMAN lists, imports, segments, and automations.
+servers:
+  - url: https://wpnov.plugindev.eu/newsman-ai-sync
+paths:
+  /tools/newsman_list_all:
+    post:
+      operationId: newsman_list_all
+      summary: List NewsMAN lists
+      description: Read-only. Returns NewsMAN lists for the provided NewsMAN credentials.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                newsman_user_id:
+                  type: string
+                  description: NewsMAN user ID. Fill only in Action fields.
+                newsman_api_key:
+                  type: string
+                  description: NewsMAN API key. Fill only in Action fields.
+      responses:
+        "200":
+          description: NewsMAN lists response
+  /tools/newsman_segment_all:
+    post:
+      operationId: newsman_segment_all
+      summary: List NewsMAN segments
+      description: Read-only. Lists segments for a NewsMAN list.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - list_id
+              properties:
+                newsman_user_id:
+                  type: string
+                  description: NewsMAN user ID. Fill only in Action fields.
+                newsman_api_key:
+                  type: string
+                  description: NewsMAN API key. Fill only in Action fields.
+                list_id:
+                  type: string
+                  description: NewsMAN list ID.
+      responses:
+        "200":
+          description: NewsMAN segments response
+  /tools/newsman_import_csv:
+    post:
+      operationId: newsman_import_csv
+      summary: Dry-run CSV import
+      description: Defaults to dry-run. Live import requires dry_run=false and confirm=true.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - list_id
+                - csv_data
+              properties:
+                newsman_user_id:
+                  type: string
+                  description: NewsMAN user ID. Fill only in Action fields.
+                newsman_api_key:
+                  type: string
+                  description: NewsMAN API key. Fill only in Action fields.
+                list_id:
+                  type: string
+                  description: NewsMAN list ID.
+                segments:
+                  type: array
+                  items:
+                    type: string
+                  description: Segment IDs or tag_ names. Omit for list-only dry-run.
+                csv_data:
+                  type: string
+                  description: CSV data with an email header.
+                dry_run:
+                  type: boolean
+                  description: Keep true for demo dry-runs.
+                confirm:
+                  type: boolean
+                  description: Must be true only after explicit approval for live import.
+      responses:
+        "200":
+          description: Import dry-run or task response
+  /tools/newsman_automation_all:
+    post:
+      operationId: newsman_automation_all
+      summary: List NewsMAN automations
+      description: Read-only. Lists automations for a NewsMAN list and date range.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - list_id
+                - start_date
+                - stop_date
+              properties:
+                newsman_user_id:
+                  type: string
+                  description: NewsMAN user ID. Fill only in Action fields.
+                newsman_api_key:
+                  type: string
+                  description: NewsMAN API key. Fill only in Action fields.
+                list_id:
+                  type: string
+                  description: NewsMAN list ID.
+                start_date:
+                  type: string
+                  description: Start date accepted by NewsMAN.
+                stop_date:
+                  type: string
+                  description: Stop date accepted by NewsMAN.
+                name:
+                  type: string
+                  description: Optional automation name filter.
+                type:
+                  type: string
+                  description: Optional automation type filter.
+                status:
+                  type: string
+                  description: Optional automation status filter.
+      responses:
+        "200":
+          description: NewsMAN automation response

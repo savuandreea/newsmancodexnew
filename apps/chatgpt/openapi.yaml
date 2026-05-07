@@ -1,10 +1,10 @@
 openapi: 3.1.0
 info:
-  title: NewsMAN Codex Sync
+  title: NewsMAN AI Sync
   version: 0.2.0
   description: Safe ChatGPT Action bridge for NewsMAN lists, imports, segments, automations, newsletters, and reports.
 servers:
-  - url: https://your-newsman-codex-sync.example.com
+  - url: https://your-newsman-ai-sync.example.com
     description: Replace with your deployed HTTPS bridge.
 paths:
   /tools/newsman_list_all:
@@ -13,6 +13,20 @@ paths:
       summary: List NewsMAN lists.
       description: Read-only. Returns the NewsMAN lists available to the authenticated account.
       x-openai-isConsequential: false
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                newsman_user_id:
+                  type: string
+                  description: Optional NewsMAN user ID. Fill only in Action fields.
+                newsman_api_key:
+                  type: string
+                  format: password
+                  description: Optional NewsMAN API key paired with newsman_user_id. Fill only in Action fields.
       responses:
         "200":
           description: List data.
@@ -30,6 +44,13 @@ paths:
               type: object
               required: [import_id]
               properties:
+                newsman_user_id:
+                  type: string
+                  description: Optional NewsMAN user ID. Fill only in Action fields.
+                newsman_api_key:
+                  type: string
+                  format: password
+                  description: Optional NewsMAN API key paired with newsman_user_id. Fill only in Action fields.
                 import_id:
                   type: string
                   description: NewsMAN import task ID.
@@ -50,6 +71,13 @@ paths:
               type: object
               required: [list_id, segments, csv_data]
               properties:
+                newsman_user_id:
+                  type: string
+                  description: Optional NewsMAN user ID. Fill only in Action fields.
+                newsman_api_key:
+                  type: string
+                  format: password
+                  description: Optional NewsMAN API key paired with newsman_user_id. Fill only in Action fields.
                 list_id:
                   type: string
                 segments:
@@ -84,6 +112,13 @@ paths:
               type: object
               required: [list_id]
               properties:
+                newsman_user_id:
+                  type: string
+                  description: Optional NewsMAN user ID. Fill only in Action fields.
+                newsman_api_key:
+                  type: string
+                  format: password
+                  description: Optional NewsMAN API key paired with newsman_user_id. Fill only in Action fields.
                 list_id:
                   type: string
       responses:
@@ -103,6 +138,13 @@ paths:
               type: object
               required: [segment_id]
               properties:
+                newsman_user_id:
+                  type: string
+                  description: Optional NewsMAN user ID. Fill only in Action fields.
+                newsman_api_key:
+                  type: string
+                  format: password
+                  description: Optional NewsMAN API key paired with newsman_user_id. Fill only in Action fields.
                 segment_id:
                   type: string
       responses:
@@ -122,6 +164,13 @@ paths:
               type: object
               required: [segment_id, confirm]
               properties:
+                newsman_user_id:
+                  type: string
+                  description: Optional NewsMAN user ID. Fill only in Action fields.
+                newsman_api_key:
+                  type: string
+                  format: password
+                  description: Optional NewsMAN API key paired with newsman_user_id. Fill only in Action fields.
                 segment_id:
                   type: string
                 confirm:
@@ -143,6 +192,13 @@ paths:
               type: object
               required: [list_id, start_date, stop_date]
               properties:
+                newsman_user_id:
+                  type: string
+                  description: Optional NewsMAN user ID. Fill only in Action fields.
+                newsman_api_key:
+                  type: string
+                  format: password
+                  description: Optional NewsMAN API key paired with newsman_user_id. Fill only in Action fields.
                 list_id:
                   type: string
                 name:
@@ -175,33 +231,26 @@ paths:
               type: object
               required: [list_id]
               properties:
+                newsman_user_id:
+                  type: string
+                  description: Optional NewsMAN user ID. Fill only in Action fields.
+                newsman_api_key:
+                  type: string
+                  format: password
+                  description: Optional NewsMAN API key paired with newsman_user_id. Fill only in Action fields.
                 list_id:
                   type: string
                 workflow_ids:
-                  oneOf:
-                    - type: string
-                    - type: array
-                      items:
-                        type: string
-                    - type: boolean
+                  type: string
+                  description: Optional workflow IDs accepted by NewsMAN.
                 start_date:
-                  oneOf:
-                    - type: string
-                    - type: boolean
+                  type: string
                 stop_date:
-                  oneOf:
-                    - type: string
-                    - type: boolean
+                  type: string
                 days:
-                  oneOf:
-                    - type: string
-                    - type: number
-                    - type: boolean
+                  type: string
                 month:
-                  oneOf:
-                    - type: string
-                    - type: number
-                    - type: boolean
+                  type: string
       responses:
         "200":
           description: Automation stats.
@@ -219,6 +268,13 @@ paths:
               type: object
               required: [workflow_id, status, confirm]
               properties:
+                newsman_user_id:
+                  type: string
+                  description: Optional NewsMAN user ID. Fill only in Action fields.
+                newsman_api_key:
+                  type: string
+                  format: password
+                  description: Optional NewsMAN API key paired with newsman_user_id. Fill only in Action fields.
                 workflow_id:
                   type: string
                 status:
@@ -229,6 +285,7 @@ paths:
         "200":
           description: Status change result.
 components:
+  schemas: {}
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

@@ -1,9 +1,9 @@
 ---
 name: newsman-ai-sync
-description: Use when working with NewsMAN AI Sync through the local Codex plugin: subscribers, lists, dry-run imports, native import status/tasks, segments, automations, newsletter drafts, tests, scheduling, reports, and generic NewsMAN API calls.
+description: Use when working with NewsMAN through the local Codex plugin: subscribers, lists, dry-run imports, native import status/tasks, segments, automations, newsletter drafts, tests, scheduling, reports, and generic NewsMAN API calls.
 ---
 
-# NewsMAN AI Sync
+# NewsMAN
 
 Use the NewsMAN MCP tools exposed by this plugin for NewsMAN account work.
 
