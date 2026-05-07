@@ -1,0 +1,125 @@
+[
+  {
+    "name": "newsman_list_all",
+    "description": "Read-only. Lists NewsMAN lists available to the authenticated account.",
+    "parameters": {
+      "type": "object",
+      "properties": {}
+    }
+  },
+  {
+    "name": "newsman_import_status",
+    "description": "Read-only. Gets the status of a NewsMAN background import task.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "import_id": {
+          "type": "string",
+          "description": "NewsMAN import task ID."
+        }
+      },
+      "required": ["import_id"]
+    }
+  },
+  {
+    "name": "newsman_import_csv",
+    "description": "Creates a NewsMAN CSV import task only when dry_run=false and confirm=true. Defaults to dry-run preview.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "list_id": { "type": "string" },
+        "segments": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Segment IDs or tag_ names. Use an empty array for list-only import."
+        },
+        "csv_data": {
+          "type": "string",
+          "description": "UTF-8 comma-delimited CSV with an email header."
+        },
+        "dry_run": { "type": "boolean" },
+        "confirm": { "type": "boolean" }
+      },
+      "required": ["list_id", "segments", "csv_data"]
+    }
+  },
+  {
+    "name": "newsman_segment_all",
+    "description": "Read-only. Lists all NewsMAN segments for a list.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "list_id": { "type": "string" }
+      },
+      "required": ["list_id"]
+    }
+  },
+  {
+    "name": "newsman_segment_count",
+    "description": "Read-only. Counts active subscribers in a NewsMAN segment.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "segment_id": { "type": "string" }
+      },
+      "required": ["segment_id"]
+    }
+  },
+  {
+    "name": "newsman_segment_refresh",
+    "description": "Live action. Refreshes a NewsMAN segment only after explicit approval and confirm=true.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "segment_id": { "type": "string" },
+        "confirm": { "type": "boolean" }
+      },
+      "required": ["segment_id", "confirm"]
+    }
+  },
+  {
+    "name": "newsman_automation_all",
+    "description": "Read-only. Lists NewsMAN automations for a list and date range.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "list_id": { "type": "string" },
+        "name": { "type": "string" },
+        "type": { "type": "string" },
+        "status": { "type": "string" },
+        "start_date": { "type": "string" },
+        "stop_date": { "type": "string" }
+      },
+      "required": ["list_id", "start_date", "stop_date"]
+    }
+  },
+  {
+    "name": "newsman_automation_stats",
+    "description": "Read-only. Returns NewsMAN automation stats for a list.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "list_id": { "type": "string" },
+        "workflow_ids": { "type": "string" },
+        "start_date": { "type": "string" },
+        "stop_date": { "type": "string" },
+        "days": { "type": "string" },
+        "month": { "type": "string" }
+      },
+      "required": ["list_id"]
+    }
+  },
+  {
+    "name": "newsman_automation_set_workflow_status",
+    "description": "Live action. Changes a NewsMAN automation workflow status only after explicit approval and confirm=true.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "workflow_id": { "type": "string" },
+        "status": { "type": "string" },
+        "confirm": { "type": "boolean" }
+      },
+      "required": ["workflow_id", "status", "confirm"]
+    }
+  }
+]

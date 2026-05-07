@@ -1,0 +1,52 @@
+{
+  "name": "newsman-ai-sync",
+  "version": "0.2.0",
+  "description": "Query and safely operate NewsMAN lists, imports, segments, automations, newsletters, and reports from AI agents.",
+  "author": {
+    "name": "Andreea S.",
+    "email": "local@example.com",
+    "url": "https://www.newsman.com/"
+  },
+  "homepage": "https://kb.newsman.com/api/1.2/",
+  "repository": "https://github.com/Newsman",
+  "license": "MIT",
+  "keywords": [
+    "newsman",
+    "newsletter",
+    "email-marketing",
+    "subscribers",
+    "campaigns",
+    "segments",
+    "imports",
+    "automation",
+    "ai-agents"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "apps": "./.app.json",
+  "interface": {
+    "displayName": "NewsMAN AI Sync",
+    "shortDescription": "Safe NewsMAN tools for AI agents",
+    "longDescription": "Use NewsMAN AI Sync to inspect lists, check import tasks, query segments, review automations, create guarded newsletter drafts, send guarded tests, schedule guarded campaigns, and read reports through the NewsMAN REST API.",
+    "developerName": "Andreea S.",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "websiteURL": "https://www.newsman.com/",
+    "privacyPolicyURL": "https://www.newsman.com/privacy-policy",
+    "termsOfServiceURL": "https://www.newsman.com/terms-and-conditions",
+    "defaultPrompt": [
+      "Show my NewsMAN lists and segment counts.",
+      "Check this NewsMAN import status.",
+      "Dry-run import these subscribers into NewsMAN.",
+      "Show NewsMAN automations updated this month.",
+      "Show NewsMAN campaign stats."
+    ],
+    "brandColor": "#1677FF",
+    "composerIcon": "./assets/newsman.svg",
+    "logo": "./assets/newsman.svg",
+    "screenshots": []
+  }
+}

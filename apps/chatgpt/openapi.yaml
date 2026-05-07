@@ -1,0 +1,238 @@
+openapi: 3.1.0
+info:
+  title: NewsMAN Codex Sync
+  version: 0.2.0
+  description: Safe ChatGPT Action bridge for NewsMAN lists, imports, segments, automations, newsletters, and reports.
+servers:
+  - url: https://your-newsman-codex-sync.example.com
+    description: Replace with your deployed HTTPS bridge.
+paths:
+  /tools/newsman_list_all:
+    post:
+      operationId: newsman_list_all
+      summary: List NewsMAN lists.
+      description: Read-only. Returns the NewsMAN lists available to the authenticated account.
+      x-openai-isConsequential: false
+      responses:
+        "200":
+          description: List data.
+  /tools/newsman_import_status:
+    post:
+      operationId: newsman_import_status
+      summary: Check import status.
+      description: Read-only. Returns status for a NewsMAN background import task.
+      x-openai-isConsequential: false
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [import_id]
+              properties:
+                import_id:
+                  type: string
+                  description: NewsMAN import task ID.
+      responses:
+        "200":
+          description: Import status.
+  /tools/newsman_import_csv:
+    post:
+      operationId: newsman_import_csv
+      summary: Dry-run or create CSV import.
+      description: Defaults to dry-run. Live import requires dry_run=false and confirm=true.
+      x-openai-isConsequential: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [list_id, segments, csv_data]
+              properties:
+                list_id:
+                  type: string
+                segments:
+                  type: array
+                  nullable: true
+                  items:
+                    type: string
+                  description: Segment IDs or tag_ names. Use null for list-only import.
+                csv_data:
+                  type: string
+                  description: UTF-8 comma-delimited CSV with an email header.
+                dry_run:
+                  type: boolean
+                  default: true
+                confirm:
+                  type: boolean
+                  default: false
+      responses:
+        "200":
+          description: Dry-run preview or import task ID.
+  /tools/newsman_segment_all:
+    post:
+      operationId: newsman_segment_all
+      summary: List segments.
+      description: Read-only. Lists all NewsMAN segments for a list.
+      x-openai-isConsequential: false
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [list_id]
+              properties:
+                list_id:
+                  type: string
+      responses:
+        "200":
+          description: Segment list.
+  /tools/newsman_segment_count:
+    post:
+      operationId: newsman_segment_count
+      summary: Count segment subscribers.
+      description: Read-only. Counts active subscribers in a NewsMAN segment.
+      x-openai-isConsequential: false
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [segment_id]
+              properties:
+                segment_id:
+                  type: string
+      responses:
+        "200":
+          description: Segment count.
+  /tools/newsman_segment_refresh:
+    post:
+      operationId: newsman_segment_refresh
+      summary: Refresh segment.
+      description: Live action. Requires explicit user approval and confirm=true.
+      x-openai-isConsequential: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [segment_id, confirm]
+              properties:
+                segment_id:
+                  type: string
+                confirm:
+                  type: boolean
+      responses:
+        "200":
+          description: Refresh result.
+  /tools/newsman_automation_all:
+    post:
+      operationId: newsman_automation_all
+      summary: List automations.
+      description: Read-only. Lists NewsMAN automations for a list and date range.
+      x-openai-isConsequential: false
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [list_id, start_date, stop_date]
+              properties:
+                list_id:
+                  type: string
+                name:
+                  type: string
+                  default: ""
+                type:
+                  type: string
+                  default: all
+                status:
+                  type: string
+                  default: all
+                start_date:
+                  type: string
+                stop_date:
+                  type: string
+      responses:
+        "200":
+          description: Automation list.
+  /tools/newsman_automation_stats:
+    post:
+      operationId: newsman_automation_stats
+      summary: Automation stats.
+      description: Read-only. Returns NewsMAN automation stats for a list.
+      x-openai-isConsequential: false
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [list_id]
+              properties:
+                list_id:
+                  type: string
+                workflow_ids:
+                  oneOf:
+                    - type: string
+                    - type: array
+                      items:
+                        type: string
+                    - type: boolean
+                start_date:
+                  oneOf:
+                    - type: string
+                    - type: boolean
+                stop_date:
+                  oneOf:
+                    - type: string
+                    - type: boolean
+                days:
+                  oneOf:
+                    - type: string
+                    - type: number
+                    - type: boolean
+                month:
+                  oneOf:
+                    - type: string
+                    - type: number
+                    - type: boolean
+      responses:
+        "200":
+          description: Automation stats.
+  /tools/newsman_automation_set_workflow_status:
+    post:
+      operationId: newsman_automation_set_workflow_status
+      summary: Change automation status.
+      description: Live action. Requires explicit user approval and confirm=true.
+      x-openai-isConsequential: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [workflow_id, status, confirm]
+              properties:
+                workflow_id:
+                  type: string
+                status:
+                  type: string
+                confirm:
+                  type: boolean
+      responses:
+        "200":
+          description: Status change result.
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+security:
+  - ApiKeyAuth: []
