@@ -39,6 +39,12 @@ node apps/chatgpt/bridge/server.mjs
 
 For ChatGPT Actions, deploy this bridge behind HTTPS/TLS and replace the `servers.url` value in `openapi.yaml` with that public URL.
 
+Shared hosting option:
+
+- Use `php-bridge/` when Node.js is not available.
+- Upload it to a HTTPS folder such as `https://wpnov.plugindev.eu/gg/newsman-ai-sync`.
+- See `php-bridge/README.md`.
+
 Credential options:
 
 - Demo/shared account: set `NEWSMAN_USER_ID` and `NEWSMAN_API_KEY` on the bridge host.
