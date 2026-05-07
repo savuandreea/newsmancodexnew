@@ -1,6 +1,6 @@
 # NewsMAN AI Sync
 
-![NewsMAN logo](assets/newsman.svg)
+![NewsMAN logo](assets/newsman-logo.svg)
 
 Safe AI-agent connector for NewsMAN. The current implementation is a local Codex plugin/MCP server for querying and guarded operations across NewsMAN lists, imports, segments, automations, newsletters, and reports, with ChatGPT and Gemini integration blueprints alongside it.
 

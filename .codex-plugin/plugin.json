@@ -45,8 +45,8 @@
       "Show NewsMAN campaign stats."
     ],
     "brandColor": "#B5121B",
-    "composerIcon": "./assets/newsman.svg",
-    "logo": "./assets/newsman.svg",
+    "composerIcon": "./assets/newsman-logo.svg",
+    "logo": "./assets/newsman-logo.svg",
     "screenshots": []
   }
 }
