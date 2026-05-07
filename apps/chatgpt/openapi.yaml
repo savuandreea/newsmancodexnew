@@ -13,6 +13,13 @@ paths:
       summary: List NewsMAN lists.
       description: Read-only. Returns the NewsMAN lists available to the authenticated account.
       x-openai-isConsequential: false
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/ManualNewsmanCredentials"
       responses:
         "200":
           description: List data.
@@ -27,12 +34,14 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              required: [import_id]
-              properties:
-                import_id:
-                  type: string
-                  description: NewsMAN import task ID.
+              allOf:
+                - $ref: "#/components/schemas/ManualNewsmanCredentials"
+                - type: object
+                  required: [import_id]
+                  properties:
+                    import_id:
+                      type: string
+                      description: NewsMAN import task ID.
       responses:
         "200":
           description: Import status.
@@ -47,26 +56,28 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              required: [list_id, segments, csv_data]
-              properties:
-                list_id:
-                  type: string
-                segments:
-                  type: array
-                  nullable: true
-                  items:
-                    type: string
-                  description: Segment IDs or tag_ names. Use null for list-only import.
-                csv_data:
-                  type: string
-                  description: UTF-8 comma-delimited CSV with an email header.
-                dry_run:
-                  type: boolean
-                  default: true
-                confirm:
-                  type: boolean
-                  default: false
+              allOf:
+                - $ref: "#/components/schemas/ManualNewsmanCredentials"
+                - type: object
+                  required: [list_id, segments, csv_data]
+                  properties:
+                    list_id:
+                      type: string
+                    segments:
+                      type: array
+                      nullable: true
+                      items:
+                        type: string
+                      description: Segment IDs or tag_ names. Use null for list-only import.
+                    csv_data:
+                      type: string
+                      description: UTF-8 comma-delimited CSV with an email header.
+                    dry_run:
+                      type: boolean
+                      default: true
+                    confirm:
+                      type: boolean
+                      default: false
       responses:
         "200":
           description: Dry-run preview or import task ID.
@@ -81,11 +92,13 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              required: [list_id]
-              properties:
-                list_id:
-                  type: string
+              allOf:
+                - $ref: "#/components/schemas/ManualNewsmanCredentials"
+                - type: object
+                  required: [list_id]
+                  properties:
+                    list_id:
+                      type: string
       responses:
         "200":
           description: Segment list.
@@ -100,11 +113,13 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              required: [segment_id]
-              properties:
-                segment_id:
-                  type: string
+              allOf:
+                - $ref: "#/components/schemas/ManualNewsmanCredentials"
+                - type: object
+                  required: [segment_id]
+                  properties:
+                    segment_id:
+                      type: string
       responses:
         "200":
           description: Segment count.
@@ -119,13 +134,15 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              required: [segment_id, confirm]
-              properties:
-                segment_id:
-                  type: string
-                confirm:
-                  type: boolean
+              allOf:
+                - $ref: "#/components/schemas/ManualNewsmanCredentials"
+                - type: object
+                  required: [segment_id, confirm]
+                  properties:
+                    segment_id:
+                      type: string
+                    confirm:
+                      type: boolean
       responses:
         "200":
           description: Refresh result.
@@ -140,24 +157,26 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              required: [list_id, start_date, stop_date]
-              properties:
-                list_id:
-                  type: string
-                name:
-                  type: string
-                  default: ""
-                type:
-                  type: string
-                  default: all
-                status:
-                  type: string
-                  default: all
-                start_date:
-                  type: string
-                stop_date:
-                  type: string
+              allOf:
+                - $ref: "#/components/schemas/ManualNewsmanCredentials"
+                - type: object
+                  required: [list_id, start_date, stop_date]
+                  properties:
+                    list_id:
+                      type: string
+                    name:
+                      type: string
+                      default: ""
+                    type:
+                      type: string
+                      default: all
+                    status:
+                      type: string
+                      default: all
+                    start_date:
+                      type: string
+                    stop_date:
+                      type: string
       responses:
         "200":
           description: Automation list.
@@ -172,36 +191,38 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              required: [list_id]
-              properties:
-                list_id:
-                  type: string
-                workflow_ids:
-                  oneOf:
-                    - type: string
-                    - type: array
-                      items:
-                        type: string
-                    - type: boolean
-                start_date:
-                  oneOf:
-                    - type: string
-                    - type: boolean
-                stop_date:
-                  oneOf:
-                    - type: string
-                    - type: boolean
-                days:
-                  oneOf:
-                    - type: string
-                    - type: number
-                    - type: boolean
-                month:
-                  oneOf:
-                    - type: string
-                    - type: number
-                    - type: boolean
+              allOf:
+                - $ref: "#/components/schemas/ManualNewsmanCredentials"
+                - type: object
+                  required: [list_id]
+                  properties:
+                    list_id:
+                      type: string
+                    workflow_ids:
+                      oneOf:
+                        - type: string
+                        - type: array
+                          items:
+                            type: string
+                        - type: boolean
+                    start_date:
+                      oneOf:
+                        - type: string
+                        - type: boolean
+                    stop_date:
+                      oneOf:
+                        - type: string
+                        - type: boolean
+                    days:
+                      oneOf:
+                        - type: string
+                        - type: number
+                        - type: boolean
+                    month:
+                      oneOf:
+                        - type: string
+                        - type: number
+                        - type: boolean
       responses:
         "200":
           description: Automation stats.
@@ -216,19 +237,33 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              required: [workflow_id, status, confirm]
-              properties:
-                workflow_id:
-                  type: string
-                status:
-                  type: string
-                confirm:
-                  type: boolean
+              allOf:
+                - $ref: "#/components/schemas/ManualNewsmanCredentials"
+                - type: object
+                  required: [workflow_id, status, confirm]
+                  properties:
+                    workflow_id:
+                      type: string
+                    status:
+                      type: string
+                    confirm:
+                      type: boolean
       responses:
         "200":
           description: Status change result.
 components:
+  schemas:
+    ManualNewsmanCredentials:
+      type: object
+      properties:
+        newsman_user_id:
+          type: string
+          description: Optional NewsMAN user ID. Fill only in GPT Action fields or secure connector setup, never in normal chat.
+        newsman_api_key:
+          type: string
+          format: password
+          writeOnly: true
+          description: Optional NewsMAN API key paired with newsman_user_id. The bridge removes this before calling NewsMAN and does not echo it.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

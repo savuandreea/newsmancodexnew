@@ -7,6 +7,7 @@ import { callTool } from "../../../scripts/newsman-mcp-server.mjs";
 const DEFAULT_PORT = 8787;
 const MAX_BODY_BYTES = 100_000;
 const PORT = Number(process.env.PORT || process.env.CHATGPT_BRIDGE_PORT || DEFAULT_PORT);
+let callQueue = Promise.resolve();
 
 const allowedTools = new Set([
   "newsman_list_all",
@@ -60,8 +61,60 @@ async function route(request, response, context) {
   }
 
   const body = await readJsonBody(request);
-  const result = await callTool(toolName, body);
+  const { args, credentials } = extractNewsmanCredentials(body);
+  const result = await enqueueToolCall(toolName, args, credentials);
   sendJson(response, 200, { ok: true, tool: toolName, result });
+}
+
+function extractNewsmanCredentials(body) {
+  const args = { ...body };
+  const credentials = {
+    userId: args.newsman_user_id ? String(args.newsman_user_id) : "",
+    apiKey: args.newsman_api_key ? String(args.newsman_api_key) : ""
+  };
+
+  delete args.newsman_user_id;
+  delete args.newsman_api_key;
+
+  if ((credentials.userId && !credentials.apiKey) || (!credentials.userId && credentials.apiKey)) {
+    const error = new Error("Provide both newsman_user_id and newsman_api_key, or neither.");
+    error.statusCode = 400;
+    throw error;
+  }
+
+  return { args, credentials };
+}
+
+async function enqueueToolCall(toolName, args, credentials) {
+  const run = callQueue.then(() => callToolWithCredentials(toolName, args, credentials));
+  callQueue = run.catch(() => {});
+  return run;
+}
+
+async function callToolWithCredentials(toolName, args, credentials) {
+  if (!credentials.userId && !credentials.apiKey) {
+    return callTool(toolName, args);
+  }
+
+  const previousUserId = process.env.NEWSMAN_USER_ID;
+  const previousApiKey = process.env.NEWSMAN_API_KEY;
+  process.env.NEWSMAN_USER_ID = credentials.userId;
+  process.env.NEWSMAN_API_KEY = credentials.apiKey;
+
+  try {
+    return await callTool(toolName, args);
+  } finally {
+    restoreEnv("NEWSMAN_USER_ID", previousUserId);
+    restoreEnv("NEWSMAN_API_KEY", previousApiKey);
+  }
+}
+
+function restoreEnv(name, value) {
+  if (value === undefined) {
+    delete process.env[name];
+  } else {
+    process.env[name] = value;
+  }
 }
 
 function requireActionAuth(request, actionApiKey) {

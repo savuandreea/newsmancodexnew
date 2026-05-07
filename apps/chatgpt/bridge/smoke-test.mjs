@@ -42,6 +42,47 @@ try {
     assert(response.status === 200 && data.ok === true && data.result.dry_run === true, "dry-run import failed");
   });
 
+  await check("manual NewsMAN credentials are not echoed", async () => {
+    const response = await fetch(`${baseUrl}/tools/newsman_import_csv`, {
+      method: "POST",
+      headers: {
+        "authorization": "Bearer test-action-key",
+        "content-type": "application/json"
+      },
+      body: JSON.stringify({
+        newsman_user_id: "manual-user",
+        newsman_api_key: "manual-secret-key",
+        list_id: "123",
+        segments: null,
+        csv_data: "email\nana@example.com",
+        dry_run: true
+      })
+    });
+    const text = await response.text();
+    const data = JSON.parse(text);
+    assert(response.status === 200 && data.ok === true && data.result.dry_run === true, "manual credential dry-run failed");
+    assert(!text.includes("manual-user") && !text.includes("manual-secret-key"), "manual credentials were echoed");
+  });
+
+  await check("manual NewsMAN credentials must be provided as a pair", async () => {
+    const response = await fetch(`${baseUrl}/tools/newsman_import_csv`, {
+      method: "POST",
+      headers: {
+        "authorization": "Bearer test-action-key",
+        "content-type": "application/json"
+      },
+      body: JSON.stringify({
+        newsman_user_id: "manual-user",
+        list_id: "123",
+        segments: null,
+        csv_data: "email\nana@example.com",
+        dry_run: true
+      })
+    });
+    const data = await response.json();
+    assert(response.status === 400 && data.error.includes("both newsman_user_id and newsman_api_key"), "credential pair guard failed");
+  });
+
   await check("live consequential call still requires confirm", async () => {
     const response = await fetch(`${baseUrl}/tools/newsman_segment_refresh`, {
       method: "POST",
