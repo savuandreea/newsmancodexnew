@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "newsman": {
+      "command": "node",
+      "args": [
+        "./scripts/newsman-mcp-server.mjs"
+      ],
+      "env": {
+        "NEWSMAN_USER_ID": "${NEWSMAN_USER_ID}",
+        "NEWSMAN_API_KEY": "${NEWSMAN_API_KEY}"
+      }
+    }
+  }
+}
