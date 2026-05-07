@@ -1,4 +1,4 @@
-# NewsMAN AI Sync PHP Bridge
+# NewsMAN PHP Bridge
 
 Use this bridge on shared hosting when Node.js is not available.
 

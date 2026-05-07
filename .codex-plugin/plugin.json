@@ -25,9 +25,9 @@
   "mcpServers": "./.mcp.json",
   "apps": "./.app.json",
   "interface": {
-    "displayName": "NewsMAN AI Sync",
+    "displayName": "NewsMAN",
     "shortDescription": "Safe NewsMAN tools for AI agents",
-    "longDescription": "Use NewsMAN AI Sync to inspect lists, check import tasks, query segments, review automations, create guarded newsletter drafts, send guarded tests, schedule guarded campaigns, and read reports through the NewsMAN REST API.",
+    "longDescription": "Use NewsMAN to inspect lists, check import tasks, query segments, review automations, create guarded newsletter drafts, send guarded tests, schedule guarded campaigns, and read reports through the NewsMAN REST API.",
     "developerName": "Andreea S.",
     "category": "Productivity",
     "capabilities": [

@@ -1,6 +1,6 @@
 # AI Agent Targets
 
-NewsMAN AI Sync is the shared name for the broader NewsMAN AI-agent connector.
+NewsMAN is the shared name for the broader NewsMAN AI-agent connector.
 
 ## Codex
 

@@ -1,10 +1,10 @@
-# NewsMAN AI Sync for ChatGPT
+# NewsMAN for ChatGPT
 
 ![NewsMAN logo](../../assets/newsman-logo.svg)
 
 Status: blueprint.
 
-This folder keeps the ChatGPT-specific packaging separate from the Codex plugin while using the same NewsMAN AI Sync name, safety model, and logo.
+This folder keeps the ChatGPT-specific packaging separate from the Codex plugin while using the same NewsMAN name, safety model, and logo.
 
 ## Recommended Paths
 
@@ -72,7 +72,7 @@ Use these assets in ChatGPT GPT Builder:
 
 | GPT Builder Field | Value |
 | --- | --- |
-| Name | `NewsMAN AI Sync` |
+| Name | `NewsMAN` |
 | Logo | `assets/newsman-logo.svg` |
 | Instructions | `apps/chatgpt/instructions.md` |
 | Action schema | `apps/chatgpt/openapi.yaml` |

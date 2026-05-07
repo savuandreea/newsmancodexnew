@@ -1,4 +1,4 @@
-# NewsMAN AI Sync
+# NewsMAN
 
 ![NewsMAN logo](assets/newsman-logo.svg)
 
@@ -80,7 +80,7 @@ Manual install:
 
 ## Safety
 
-NewsMAN AI Sync follows SafetyTools for AI Agents:
+NewsMAN follows SafetyTools for AI Agents:
 
 - SafetyFirst: first verify, then touch.
 - Dry-run subscriber imports by default.
